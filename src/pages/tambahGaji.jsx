@@ -1,3 +1,9 @@
+import DashboardLayout from "../layout/dashboardLayout";
+
 export default function TambahGaji() {
-  return <></>;
+  return (
+    <DashboardLayout title="Gaji" tabActive="gaji">
+   
+    </DashboardLayout>
+  );
 }
