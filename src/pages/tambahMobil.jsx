@@ -58,7 +58,6 @@ export default function TambahMobil() {
                 className="btn btn-primary" 
                 id="btn-submit"
               ></button>
-              
               <a href="/car" className="btn btn-outline-secondary">Kembali</a>
             </div>
           </div>
