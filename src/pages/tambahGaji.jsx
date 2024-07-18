@@ -9,7 +9,7 @@ export default function TambahGaji() {
           <button className="btn btn-sm btn-outline-danger" id="btn-delete">Hapus Data Ini</button>
       </div>
       <div className="card-body">
-        <form id="form-data" onSubmit={handleSubmit}>
+        <form id="form-data">
           <div className="row mb-3">
             <label className="col-sm-2 col-form-label" htmlFor="name">Nama</label>
             <div className="col-sm-10">
