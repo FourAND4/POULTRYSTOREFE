@@ -1,6 +1,23 @@
 import DashboardLayout from "../layout/dashboardLayout";
 import {Link} from "react-router-dom";
+import {useEffect, useState} from "react";
 export default function Aktifitas() {
+  const dateFormatter = date => date.toLocaleDateString('fr-CA');
+
+  const [date , setDate ] = useState(dateFormatter(new Date()));
+  const [activities, setActivities] = useState([{}])
+
+  useEffect(() => {
+    fetchData();
+  }, [date]);
+
+  const fetchData = async () => {
+    // TODO: fetch data from BE
+    setActivities([
+      {id: 1, detail: 'lorem ipsum', date: '2024-07-05', partner: 'williant', area: 'London', status: 'delivered'},
+    ])
+  }
+
   return (
     <DashboardLayout title="Aktifitas" tabActive="aktifitas">
     <div className="card">
@@ -15,7 +32,8 @@ export default function Aktifitas() {
                 id="filter"
                 name="date"
                 className="form-control"
-                value="{date}"
+                value={date}
+                onChange={e => setDate(e.target.value)}
               />
             </div>
             <Link to="/aktifitas/tambah" className="btn btn-primary">
@@ -37,9 +55,18 @@ export default function Aktifitas() {
             </tr>
           </thead>
           <tbody className="table-border-bottom-0">
-                  <button className="btn btn-sm btn-primary">
-                    Edit
-                  </button>
+          {activities.map((activity, index) => (
+              <tr key={index}>
+                <td>{activity.detail}</td>
+                <td>{activity.date}</td>
+                <td>{activity.partner}</td>
+                <td>{activity.area}</td>
+                <td>{activity.status}</td>
+                <td>
+                  <Link to={`/aktifitas/${activity.id}`} className="btn btn-sm btn-secondary">edit</Link>
+                </td>
+              </tr>
+          ))}
           </tbody>
         </table>
       </div>
