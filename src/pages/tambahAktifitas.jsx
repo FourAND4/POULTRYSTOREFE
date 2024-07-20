@@ -44,7 +44,9 @@ export default function TambahAktifitas() {
       <div className="card mb-4">
         <div className="card-header d-flex align-items-center justify-content-between">
           <h5 className="mb-0">{currentMode} Aktivitas</h5>
-          <button className="btn btn-sm btn-outline-danger" id="btn-delete" onClick={handleDelete}>Hapus Data Ini</button>
+          {id && (
+            <button className="btn btn-sm btn-outline-danger" id="btn-delete" onClick={handleDelete}>Hapus Data Ini</button>
+          )}
         </div>
         <div className="card-body">
           <form id="form-data" onSubmit={handleSubmit}>
