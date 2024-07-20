@@ -1,4 +1,5 @@
 import DashboardLayout from "../layout/dashboardLayout";
+import {Link} from "react-router-dom";
 
 export default function Mobil() {
   return (
@@ -8,7 +9,7 @@ export default function Mobil() {
         <div className="d-flex align-items-center justify-content-between">
           <h5>Daftar</h5>
           <div className="d-flex gap-3 align-items-center">
-            <button className="btn btn-primary">Tambah</button>
+            <Link to="/mobil/tambah" className="btn btn-primary">Tambah</Link>
           </div>
         </div>
       </div>

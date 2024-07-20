@@ -1,4 +1,5 @@
 import DashboardLayout from "../layout/dashboardLayout";
+import {Link} from "react-router-dom";
 
 export default function TambahMobil() {
   return (
@@ -58,7 +59,7 @@ export default function TambahMobil() {
                 className="btn btn-primary" 
                 id="btn-submit"
               ></button>
-              <a href="/car" className="btn btn-outline-secondary">Kembali</a>
+              <Link to="/mobil" className="btn btn-outline-secondary">Kembali</Link>
             </div>
           </div>
         </form>

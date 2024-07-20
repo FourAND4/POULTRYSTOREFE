@@ -1,4 +1,5 @@
 import DashboardLayout from "../layout/dashboardLayout";
+import {Link} from "react-router-dom";
 
 export default function Trip() {
   return (
@@ -17,7 +18,7 @@ export default function Trip() {
                 className="form-control"
               />
             </div>
-            <button className="btn btn-primary">Tambah</button>
+            <Link to="/trip/tambah" className="btn btn-primary">Tambah</Link>
           </div>
         </div>
       </div>
@@ -66,6 +67,6 @@ export default function Trip() {
     </div>
     </DashboardLayout>
   );
-};
+}
 
 

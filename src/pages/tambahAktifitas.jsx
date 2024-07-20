@@ -1,4 +1,5 @@
 import DashboardLayout from "../layout/dashboardLayout";
+import {Link} from "react-router-dom";
 
 export default function TambahAktifitas() {
   return (
@@ -68,7 +69,7 @@ export default function TambahAktifitas() {
             <div className="row justify-content-end">
               <div className="col-sm-10">
                 <button type="submit" className="btn btn-primary" id="btn-submit"></button>
-                <button type="button" className="btn btn-outline-secondary">kembali</button>
+                <Link to="/aktifitas" type="button" className="btn btn-outline-secondary">kembali</Link>
               </div>
             </div>
           </form>

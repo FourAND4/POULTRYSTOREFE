@@ -1,4 +1,5 @@
 import DashboardLayout from "../layout/dashboardLayout";
+import {Link} from "react-router-dom";
 export default function Aktifitas() {
   return (
     <DashboardLayout title="Aktifitas" tabActive="aktifitas">
@@ -17,9 +18,9 @@ export default function Aktifitas() {
                 value="{date}"
               />
             </div>
-            <button className="btn btn-primary">
+            <Link to="/aktifitas/tambah" className="btn btn-primary">
               Tambah
-            </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -45,4 +46,4 @@ export default function Aktifitas() {
     </div>
     </DashboardLayout>
   );
-};
+}

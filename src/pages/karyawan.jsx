@@ -1,4 +1,5 @@
 import DashboardLayout from "../layout/dashboardLayout";
+import {Link} from "react-router-dom";
 
 export default function Karyawan() {
   return (
@@ -17,7 +18,7 @@ export default function Karyawan() {
                 <option value="busy">Sibuk/Trip</option>
               </select>
             </div>
-            <button className="btn btn-primary">Tambah</button>
+            <Link to="/karyawan/tambah" className="btn btn-primary">Tambah</Link>
           </div>
         </div>
       </div>
@@ -37,4 +38,4 @@ export default function Karyawan() {
     </div>
     </DashboardLayout>
   );
-};
+}

@@ -1,4 +1,5 @@
 import DashboardLayout from "../layout/dashboardLayout";
+import {Link} from "react-router-dom";
 
 export default function TambahMitra() {
   return (
@@ -88,7 +89,7 @@ export default function TambahMitra() {
             <div className="row justify-content-end">
               <div className="col-sm-10">
                 <button type="submit" className="btn btn-primary" id="btn-submit"></button>
-                <a href="/partner" type="button" className="btn btn-outline-secondary">kembali</a>
+                <Link to="/mitra" type="button" className="btn btn-outline-secondary">kembali</Link>
               </div>
             </div>
           </form>

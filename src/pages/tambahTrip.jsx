@@ -1,4 +1,5 @@
 import DashboardLayout from "../layout/dashboardLayout";
+import {Link} from "react-router-dom";
 
 export default function TambahTrip() {
   return (
@@ -90,7 +91,7 @@ export default function TambahTrip() {
                 </div>
                 <div>
                   <button type="submit" className="btn btn-primary"></button>
-                  <a href="/trip" type="button" className="btn btn-outline-secondary">kembali</a>
+                  <Link to="/trip" type="button" className="btn btn-outline-secondary">kembali</Link>
                 </div>
               </form>
             </div>
