@@ -81,7 +81,7 @@ export default function TambahAktifitas() {
                 <select
                   id="partner"
                   className="form-select"
-                  defaultValue={partner}
+                  value={partner}
                   onChange={e => setPartner(e.target.value)}
                 >
                   <option disabled={true} value={'DEFAULT'}>Default select</option>
@@ -97,7 +97,7 @@ export default function TambahAktifitas() {
                 <select
                   id="status"
                   className="form-select"
-                  defaultValue={status}
+                  value={status}
                   onChange={e => setStatus(e.target.value)}
                 >
                   <option value="scheduled">Scheduled</option>

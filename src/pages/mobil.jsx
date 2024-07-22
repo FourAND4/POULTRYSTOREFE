@@ -1,17 +1,27 @@
 import DashboardLayout from "../layout/dashboardLayout";
 import {Link} from "react-router-dom";
 import {useEffect, useState} from "react";
+import {car} from "../apis/expressServer.js";
 
 export default function Mobil() {
-  const [carsList, setCarsList] = useState([{}])
+  const [carsList, setCarsList] = useState([{}]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState();
 
   useEffect(() => {
-    fetchCars()
+    fetchCars();
   }, []);
 
   const fetchCars = async () => {
-    // TODO: fetch data from BE
-    setCarsList([{id:1, plat: 123, merk: 'honda', status: 'free'}])
+    setCarsList([]);
+    setIsLoading(true);
+    const cars = await car().getAll();
+    if (!cars.error) {
+      setCarsList(cars.data);
+    } else {
+      setErrorMessage(cars.message);
+    }
+    setIsLoading(false);
   }
 
   return (
@@ -36,7 +46,7 @@ export default function Mobil() {
               </tr>
             </thead>
             <tbody className="table-border-bottom-0">
-              {carsList.map((car, index) => (
+              {!isLoading && !errorMessage && carsList.map((car, index) => (
                   <tr key={index}>
                     <td>{car.plat}</td>
                     <td>{car.merk}</td>
@@ -48,6 +58,12 @@ export default function Mobil() {
               ))}
             </tbody>
           </table>
+          {isLoading && (
+              <p>Loading...</p>
+          )}
+          {errorMessage && (
+              <p>{errorMessage}</p>
+          )}
         </div>
       </div>
     </DashboardLayout>

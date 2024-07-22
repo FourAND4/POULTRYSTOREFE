@@ -1,14 +1,16 @@
 import DashboardLayout from "../layout/dashboardLayout";
-import {Link, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
+import {car} from "../apis/expressServer.js";
 
 export default function TambahMobil() {
   const id = useParams().id;
   const currentMode = id ? 'Edit' : 'Tambah';
+  const navigate = useNavigate();
 
   const [plat, setPlat] = useState('');
   const [merk, setMerk] = useState('');
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState('free');
 
   useEffect(() => {
     if (id) {
@@ -16,16 +18,37 @@ export default function TambahMobil() {
     }
   }, [id]);
 
-  const fetchSingleData = id => {
-    // TODO: fetch single data by id
-    console.log(id);
+  const fetchSingleData = async id => {
+    const result = await car().getById(id);
+    if (!result.error){
+      setPlat(result.data.plat);
+      setMerk(result.data.merk);
+      setStatus(result.data.status);
+    } else {
+      alert(result.message);
+    }
   }
-  const handleSubmit = event => {
+
+  const handleSubmit = async event => {
     event.preventDefault();
-    // TODO: when form is submit
+    const response = id
+        ? await car().update(id, { plat, merk, status })
+        : await car().store({ plat, merk, status });
+    if (!response.error){
+      navigate('/mobil');
+    } else {
+      alert(response.message);
+    }
   }
-  const handleDelete = () => {
-    // TODO: handle delete
+
+  const handleDelete = async () => {
+    const response = await car().delete(id);
+    console.log(response);
+    if (!response.error){
+      navigate('/mobil');
+    } else {
+      alert(response.message);
+    }
   }
 
   return (
@@ -71,7 +94,7 @@ export default function TambahMobil() {
                   <select
                     id="kondisi"
                     className="form-select"
-                    defaultValue={status}
+                    value={status}
                     onChange={e => setStatus(e.target.value)}
                   >
                     <option value="free">Free</option>
