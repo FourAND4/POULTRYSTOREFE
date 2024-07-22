@@ -1,16 +1,18 @@
 import DashboardLayout from "../layout/dashboardLayout";
-import {Link, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
+import {activity, partner} from "../apis/expressServer.js";
 
 export default function TambahAktifitas() {
   const dateFormatter = date => date.toLocaleDateString('fr-CA');
 
   const id = useParams().id;
   const currentMode = id ? 'Edit' : 'Tambah';
+  const navigate = useNavigate();
 
   const [detail, setDetail] = useState('');
   const [date, setDate] = useState( dateFormatter(new Date()) );
-  const [partner, setPartner] = useState('DEFAULT');
+  const [partnerId, setPartnerId] = useState('DEFAULT');
   const [status, setStatus] = useState('scheduled');
   const [partnerList, setPartnerList] = useState([]);
 
@@ -23,20 +25,44 @@ export default function TambahAktifitas() {
     }
   }, [id]);
 
-  const fetchSingleData = id => {
-    // TODO: fetch single data by id
-    console.log(id);
+  const fetchSingleData = async id => {
+    const result = await activity().getById(id);
+    if (!result.error) {
+      const formatedDate = new Date(result.data.date).toISOString().split('T')[0];
+      setDetail(result.data.detail);
+      setDate(formatedDate);
+      setPartnerId(result.data.partner_id);
+      setStatus(result.data.status);
+    } else {
+      alert(result.message);
+    }
   }
-  const fetchPartnerList = () => {
-    // TODO: fetch data partner
-    setPartnerList( [...partnerList, {id: 1, name: "dummy"}]);
+  const fetchPartnerList = async () => {
+    const result = await partner().getAll();
+    if (!result.error){
+      setPartnerList(result.data);
+    } else {
+      alert(result.message);
+    }
   }
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
-    // TODO: when form is submit
+    const response = id
+        ? await activity().update(id, { detail, date, partnerId, status })
+        : await activity().store({ detail, date, partnerId, status });
+    if (!response.error){
+      navigate('/aktifitas');
+    } else {
+      alert(response.message);
+    }
   }
-  const handleDelete = () => {
-    // TODO: handle delete
+  const handleDelete = async () => {
+    const response = await activity().delete(id);
+    if (!response.error){
+      navigate('/aktifitas');
+    } else {
+      alert(response.message);
+    }
   }
 
   return (
@@ -81,8 +107,8 @@ export default function TambahAktifitas() {
                 <select
                   id="partner"
                   className="form-select"
-                  value={partner}
-                  onChange={e => setPartner(e.target.value)}
+                  value={partnerId}
+                  onChange={e => setPartnerId(e.target.value)}
                 >
                   <option disabled={true} value={'DEFAULT'}>Default select</option>
                   {partnerList.map((partner, index) => (
