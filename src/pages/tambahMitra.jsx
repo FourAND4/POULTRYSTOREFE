@@ -1,16 +1,18 @@
 import DashboardLayout from "../layout/dashboardLayout";
-import {Link, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
+import {partner} from "../apis/expressServer.js";
 
 export default function TambahMitra() {
   const id = useParams().id;
   const currentMode = id ? 'Edit' : 'Tambah';
+  const navigate = useNavigate();
 
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
   const [area, setArea] = useState('');
   const [phone, setPhone] = useState('');
-  const [partnershipType, setPartnershipType] = useState('');
+  const [partnerType, setPartnerType] = useState('');
 
   useEffect(() => {
     if (id) {
@@ -18,16 +20,36 @@ export default function TambahMitra() {
     }
   }, [id]);
 
-  const fetchSingleData = id => {
-    // TODO: fetch single data by id
-    console.log(id);
+  const fetchSingleData = async id => {
+    const result = await partner().getById(id);
+    if (!result.error){
+      setName(result.data.name);
+      setAddress(result.data.address);
+      setArea(result.data.area);
+      setPhone(result.data.phone);
+      setPartnerType(result.data.partner_type);
+    } else {
+      alert(result.message);
+    }
   }
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
-    // TODO: when form is submit
+    const response = id
+        ? await partner().update(id, { name, address, area, phone, partnerType })
+        : await partner().store({ name, address, area, phone, partnerType });
+    if (!response.error){
+      navigate('/mitra');
+    } else {
+      alert(response.message);
+    }
   }
-  const handleDelete = () => {
-    // TODO: handle delete
+  const handleDelete = async () => {
+    const result = await partner().delete(id);
+    if (!result.error){
+      navigate('/mitra');
+    } else {
+      alert(result.message);
+    }
   }
 
   return (
@@ -111,8 +133,8 @@ export default function TambahMitra() {
                   className="form-control"
                   id="partnership_type"
                   placeholder="ex: pembesaran puyuh, petelur puyuh..."
-                  value={partnershipType}
-                  onChange={e => setPartnershipType(e.target.value)}
+                  value={partnerType}
+                  onChange={e => setPartnerType(e.target.value)}
                 />
               </div>
             </div>

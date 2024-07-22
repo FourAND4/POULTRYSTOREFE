@@ -95,7 +95,7 @@ const hitServer = async (path, method, data ) => {
                 method: method,
                 headers: { 'Content-type': 'application/json' },
                 signal: AbortSignal.timeout(5000),
-                body: JSON.stringify(data)
+                body: JSON.stringify( snakeCasedData(data) )
             });
             return response.json();
         }
@@ -124,5 +124,12 @@ const convertJsonToQueryString = json => {
     }
     return queryString.join('&');
 }
+
+const snakeCasedData = data => {
+    return Object.fromEntries(
+        Object.keys(data).map(key => [ toSnakeCase(key), data[key] ])
+    );
+}
+
 
 const toSnakeCase = key => key.replace(/([A-Z])/g, (match) => `_${match.toLowerCase()}`);
