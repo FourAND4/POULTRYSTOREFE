@@ -1,16 +1,27 @@
 import DashboardLayout from "../layout/dashboardLayout";
 import {Link} from "react-router-dom";
 import {useEffect, useState} from "react";
+import {partner} from "../apis/expressServer.js";
 
 export default function Mitra() {
-  const [partnersList, setPartnersList] = useState([{}])
+  const [partnersList, setPartnersList] = useState([{}]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState();
 
   useEffect(() => {
-    fetchPartners()
+    fetchPartners();
   }, []);
 
   const fetchPartners = async () => {
-    setPartnersList([{id: 1, name: 'lorem' , area: 'sawah', phone: '0812', partnership_type: 'a'}])
+    setPartnersList([]);
+    setIsLoading(true);
+    const result = await partner().getAll();
+    if (!result.error) {
+      setPartnersList(result.data);
+    } else {
+      setErrorMessage(result.message);
+    }
+    setIsLoading(false);
   }
 
   return (
@@ -36,12 +47,14 @@ export default function Mitra() {
               </tr>
             </thead>
             <tbody className="table-border-bottom-0">
-              {partnersList.map((partner, index) => (
+              {!isLoading && !errorMessage && partnersList.map((partner, index) => (
                   <tr key={index}>
                     <td>{partner.name}</td>
                     <td>{partner.area}</td>
-                    <td>{partner.phone}</td>
-                    <td>{partner.partnership_type}</td>
+                    <td>
+                      <a href={`https://wa.me/62${parseInt(partner.phone).toString()}`} target="_blank">{partner.phone}</a>
+                    </td>
+                    <td>{partner.partner_type}</td>
                     <td>
                       <Link to={`/mitra/${partner.id}`} className="btn btn-sm btn-secondary">Edit</Link>
                     </td>
@@ -49,6 +62,12 @@ export default function Mitra() {
               ))}
             </tbody>
           </table>
+          {isLoading && (
+              <p>Loading...</p>
+          )}
+          {errorMessage && (
+              <p>{errorMessage}</p>
+          )}
         </div>
       </div>
     </DashboardLayout>

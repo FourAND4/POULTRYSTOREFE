@@ -1,4 +1,3 @@
-import React from 'react';
 import '../../public/assets/vendor/css/pages/page-auth.css';
 
 export default function Login() {
