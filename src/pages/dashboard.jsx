@@ -1,124 +1,79 @@
 import DashboardLayout from "../layout/dashboardLayout";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
+  const [data, setData] = useState({
+    cars: 0,
+    employees: 0,
+    absentToday: 0,
+  });
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Fetch data from an API or other source
+    // This is just a placeholder example
+    setData({
+      cars: 10,
+      employees: 50,
+      absentToday: 5,
+    });
+  }, []);
+
+  const navigateTo = (path) => {
+    navigate(path);
+  };
+
   return (
     <DashboardLayout title="Dashboard" tabActive="dashboard">
-    <div className="card">
-      <div className="card-header">
-        <div className="d-flex align-items-center justify-content-between">
-          <h5>Striped rows</h5>
-          <div>
-            <button className="btn btn-primary">test</button>
+      <div className="row">
+        <div className="col-md-4">
+          <div className="card" onClick={() => navigateTo('/mobil')}>
+            <div className="card-body">
+              <div className="d-flex align-items-center">
+                <div className="icon bg-info text-white rounded-circle">
+                  <i className="fas fa-car"></i>
+                </div>
+                <div className="ml-3">
+                  <h5 className="card-title">Jumlah Mobil</h5>
+                  <p className="card-text">{data.cars}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="col-md-4">
+          <div className="card" onClick={() => navigateTo('/karyawan')}>
+            <div className="card-body">
+              <div className="d-flex align-items-center">
+                <div className="icon bg-success text-white rounded-circle">
+                  <i className="fas fa-users"></i>
+                </div>
+                <div className="ml-3">
+                  <h5 className="card-title">Jumlah Karyawan</h5>
+                  <p className="card-text">{data.employees}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="col-md-4">
+          <div className="card" onClick={() => navigateTo('/presensi')}>
+            <div className="card-body">
+              <div className="d-flex align-items-center">
+                <div className="icon bg-danger text-white rounded-circle">
+                  <i className="fas fa-user-times"></i>
+                </div>
+                <div className="ml-3">
+                  <h5 className="card-title">Karyawan Absen Hari Ini</h5>
+                  <p className="card-text">{data.absentToday}</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div className="table-responsive text-nowrap">
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <th>Project</th>
-              <th>Client</th>
-              <th>Users</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody className="table-border-bottom-0">
-            <tr>
-              <td>
-                <i className="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong>
-              </td>
-              <td>Albert Cook</td>
-              <td>
-                <ul className="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                  <li
-                    data-bs-toggle="tooltip"
-                    data-popup="tooltip-custom"
-                    data-bs-placement="top"
-                    className="avatar avatar-xs pull-up"
-                    title="Lilian Fuller"
-                  >
-                    <img src="../assets/img/avatars/5.png" alt="Avatar" className="rounded-circle" />
-                  </li>
-                  <li
-                    data-bs-toggle="tooltip"
-                    data-popup="tooltip-custom"
-                    data-bs-placement="top"
-                    className="avatar avatar-xs pull-up"
-                    title="Sophia Wilkerson"
-                  >
-                    <img src="../assets/img/avatars/6.png" alt="Avatar" className="rounded-circle" />
-                  </li>
-                </ul>
-              </td>
-              <td>
-                <span className="badge bg-label-primary me-1">Active</span>
-              </td>
-              <td>
-                <div className="dropdown">
-                  <button
-                    type="button"
-                    className="btn p-0 dropdown-toggle hide-arrow"
-                    data-bs-toggle="dropdown"
-                  >
-                    <i className="bx bx-dots-vertical-rounded"></i>
-                  </button>
-                  <div className="dropdown-menu">
-                    <a className="dropdown-item" href="javascript:void(0);">
-                      <i className="bx bx-edit-alt me-1"></i> Edit
-                    </a>
-                    <a className="dropdown-item" href="javascript:void(0);">
-                      <i className="bx bx-trash me-1"></i> Delete
-                    </a>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <i className="fab fa-react fa-lg text-info me-3"></i> <strong>React Project</strong>
-              </td>
-              <td>Barry Hunter</td>
-              <td>
-                <ul className="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                  <li
-                    data-bs-toggle="tooltip"
-                    data-popup="tooltip-custom"
-                    data-bs-placement="top"
-                    className="avatar avatar-xs pull-up"
-                    title="Lilian Fuller"
-                  >
-                    <img src="../assets/img/avatars/5.png" alt="Avatar" className="rounded-circle" />
-                  </li>
-                </ul>
-              </td>
-              <td>
-                <span className="badge bg-label-success me-1">Completed</span>
-              </td>
-              <td>
-                <div className="dropdown">
-                  <button
-                    type="button"
-                    className="btn p-0 dropdown-toggle hide-arrow"
-                    data-bs-toggle="dropdown"
-                  >
-                    <i className="bx bx-dots-vertical-rounded"></i>
-                  </button>
-                  <div className="dropdown-menu">
-                    <a className="dropdown-item" href="javascript:void(0);">
-                      <i className="bx bx-edit-alt me-1"></i> Edit
-                    </a>
-                    <a className="dropdown-item" href="javascript:void(0);">
-                      <i className="bx bx-trash me-1"></i> Delete
-                    </a>
-                  </div>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
     </DashboardLayout>
   );
 };
