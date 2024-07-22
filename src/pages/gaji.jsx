@@ -8,6 +8,17 @@ export default function Gaji() {
         <div className="d-flex align-items-center justify-content-between">
           <h5>Daftar</h5>
           <div className="d-flex gap-3 align-items-center">
+          <div className="input-group">
+              <span className="input-group-text">bulan:</span>
+              <input
+                type="month"
+                id="filter"
+                name="month"
+                className="form-control"
+                value={month}
+                onChange={e => setMonth(e.target.value)}
+              />
+            </div>
           </div>
         </div>
       </div>
