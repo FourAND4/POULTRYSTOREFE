@@ -7,7 +7,7 @@ export default function Karyawan() {
   const [employeeList, setEmployeeList] = useState([{}]);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState();
-  const [filter, setFilter] = useState('semua')
+  const [filter, setFilter] = useState('all')
 
   useEffect(() => {
     fetchEmployees();

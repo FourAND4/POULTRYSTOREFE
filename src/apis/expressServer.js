@@ -60,7 +60,7 @@ export function salary() {
 export function wage() {
     const path = 'api/wages'
     return {
-        getAll: () => hitServer(path, 'GET'),
+        getAll: data => hitServer(path, 'GET', data),
         getById: id => hitServer(`${path}/${id}`, 'GET'),
         store: data => hitServer(path, 'POST', data),
         update: (id, data) => hitServer(`${path}/${id}`, 'PUT', data),
@@ -68,7 +68,6 @@ export function wage() {
     }
 }
 
-// TODO: api trip not yet implemented n need to be change
 export function trip() {
     const path = 'api/trips'
     return {
