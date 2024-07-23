@@ -1,4 +1,4 @@
-const serverUrl = 'https://443b-103-107-85-104.ngrok-free.app';
+const serverUrl = 'https://3d8d-103-107-85-104.ngrok-free.app';
 
 export function car() {
     const path = 'api/cars'
