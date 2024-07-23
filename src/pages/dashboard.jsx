@@ -38,7 +38,7 @@ export default function Dashboard() {
   };
 
   const fetchEmployees = async () => {
-    const employees = await employee().getAll('semua');
+    const employees = await employee().getAll('free');
     if (!employees.error) {
       setData((prevData) => ({
         ...prevData,
