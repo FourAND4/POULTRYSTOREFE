@@ -1,8 +1,11 @@
 import DashboardLayout from "../layout/dashboardLayout";
+import {useParams} from "react-router-dom";
 
 export default function TambahGaji() {
+  const { id } = useParams();
+
   return (
-    <DashboardLayout title="Gaji" tabActive="gaji">
+    <DashboardLayout title="Gaji" tabActive="_">
    <div className="card mb-4">
       <div className="card-header d-flex align-items-center justify-content-between">
         <h5 className="mb-0"></h5>

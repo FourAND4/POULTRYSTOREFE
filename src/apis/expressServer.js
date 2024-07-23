@@ -4,6 +4,7 @@ export function car() {
     const path = 'api/cars'
     return {
         getAll: () => hitServer(path, 'GET'),
+        getFree: () => hitServer(path, 'GET', {status: 'free'}),
         getById: id => hitServer(`${path}/${id}`, 'GET'),
         store: data => hitServer(path, 'POST', data),
         update: (id, data) => hitServer(`${path}/${id}`, 'PUT', data),
@@ -38,6 +39,7 @@ export function activity() {
     return {
         getAll: date => hitServer(path, 'GET', { date }),
         getById: id => hitServer(`${path}/${id}`, 'GET'),
+        getAllWithNoTrip: (date, status) => hitServer(path, 'GET', {date, status}),
         store: data => hitServer(path, 'POST', data),
         update: (id, data) => hitServer(`${path}/${id}`, 'PUT', data),
         delete: id => hitServer(`${path}/${id}`, 'DELETE')
@@ -58,7 +60,7 @@ export function salary() {
 export function wage() {
     const path = 'api/wages'
     return {
-        getAll: () => hitServer(path, 'GET'),
+        getAll: data => hitServer(path, 'GET', data),
         getById: id => hitServer(`${path}/${id}`, 'GET'),
         store: data => hitServer(path, 'POST', data),
         update: (id, data) => hitServer(`${path}/${id}`, 'PUT', data),
@@ -66,11 +68,10 @@ export function wage() {
     }
 }
 
-// TODO: api trip not yet implemented n need to be change
 export function trip() {
     const path = 'api/trips'
     return {
-        getAll: () => hitServer(path, 'GET'),
+        getAll: date => hitServer(path, 'GET', { date }),
         getById: id => hitServer(`${path}/${id}`, 'GET'),
         store: data => hitServer(path, 'POST', data),
         update: (id, data) => hitServer(`${path}/${id}`, 'PUT', data),

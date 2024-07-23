@@ -20,6 +20,7 @@ import Mobil from "./pages/mobil";
 import TambahMobil from "./pages/tambahMobil";
 import Mitra from "./pages/mitra";
 import TambahMitra from "./pages/tambahMitra";
+import Bayaran from "./pages/bayaran.jsx";
 
 const router = createBrowserRouter([
   { path: "/", element: <Test /> },
@@ -38,9 +39,11 @@ const router = createBrowserRouter([
   { path: "/karyawan", element: <Karyawan /> },
   { path: "/karyawan/tambah", element: <TambahKaryawan /> },
   { path: "/karyawan/:id", element: <TambahKaryawan /> },
+  { path: "/karyawan/:id/gaji", element: <Bayaran using={'month'} /> },
+  { path: "/karyawan/:id/gaji/tambah", element: <TambahGaji /> },
   { path: "/gaji", element: <Gaji /> },
-  { path: "/gaji/tambah", element: <TambahGaji /> },
-  { path: "/gaji/:id", element: <TambahGaji /> },
+  { path: "/gaji/:id", element: <Bayaran using={'id'} /> },
+  { path: "/gaji/:user/edit/:id", element: <TambahGaji /> },
   { path: "/mobil", element: <Mobil /> },
   { path: "/mobil/tambah", element: <TambahMobil /> },
   { path: "/mobil/:id", element: <TambahMobil /> },

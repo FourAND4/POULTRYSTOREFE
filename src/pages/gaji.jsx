@@ -1,6 +1,32 @@
 import DashboardLayout from "../layout/dashboardLayout";
+import {useEffect, useState} from "react";
+import {salary} from "../apis/expressServer.js";
+import {Link} from "react-router-dom";
 
 export default function Gaji() {
+  const dateFormatter = date => date.toLocaleDateString('fr-CA', { year: 'numeric', month: '2-digit' });
+
+  const [month, setMonth] = useState(dateFormatter(new Date()));
+  const [salaries, setSalaries] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState();
+
+  useEffect(() => {
+    fetchData();
+  }, [month]);
+
+  const fetchData = async () => {
+    setSalaries([]);
+    setIsLoading(true);
+    const result = await salary().getAll(month);
+    if (!result.error) {
+      setSalaries(result.data);
+    } else {
+      setErrorMessage(result.message);
+    }
+    setIsLoading(false);
+  }
+
   return (
     <DashboardLayout title="Gaji" tabActive="gaji">
     <div className="card">
@@ -8,7 +34,7 @@ export default function Gaji() {
         <div className="d-flex align-items-center justify-content-between">
           <h5>Daftar</h5>
           <div className="d-flex gap-3 align-items-center">
-          <div className="input-group">
+            <div className="input-group">
               <span className="input-group-text">bulan:</span>
               <input
                 type="month"
@@ -28,15 +54,35 @@ export default function Gaji() {
             <tr>
               <th>Nama</th>
               <th>Bulan</th>
-              <th>Upah</th>
+              <th>Gaji</th>
               <th>Status</th>
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody className="table-border-bottom-0"></tbody>
+          <tbody className="table-border-bottom-0">
+          {!isLoading && !errorMessage && salaries.map((salary, index) => (
+              salary.salary && salary.salary.length > 0 && (
+                  <tr key={index}>
+                    <td>{salary.nickname}</td>
+                    <td>{dateFormatter(new Date(salary.salary[0].month))}</td>
+                    <td>{salary.salary[0].salary_total}</td>
+                    <td>{salary.salary[0].status}</td>
+                    <td>
+                      <Link to={`/gaji/${salary.id}`} className="btn btn-sm btn-secondary">lihat</Link>
+                    </td>
+                  </tr>
+              )
+          ))}
+          </tbody>
         </table>
+        {isLoading && (
+            <p>Loading...</p>
+        )}
+        {errorMessage && (
+            <p>{errorMessage}</p>
+        )}
       </div>
     </div>
     </DashboardLayout>
   );
-};
+}
