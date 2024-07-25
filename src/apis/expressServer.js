@@ -79,6 +79,13 @@ export function trip() {
     }
 }
 
+export  function auth() {
+    const path = 'api/employees/login';
+    return {
+        loginUser: (username, password) => hitServer(path, 'POST', { username, password })
+    }
+}
+
 const hitServer = async (path, method, data ) => {
     try {
         if (method === 'GET') {
