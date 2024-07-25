@@ -18,6 +18,7 @@ export default function TambahTrip() {
     date: dateFormatter(new Date()),
     area: '',
     estimasi: '',
+    wage: '',
     employee1_id: 'DEFAULT',
     employee2_id: 'DEFAULT',
     car_id: 'DEFAULT',
@@ -48,6 +49,7 @@ export default function TambahTrip() {
     if (!response.error) {
       navigate('/trip');
     } else {
+      console.log(response);
       alert(response.message);
     }
   };
@@ -164,6 +166,19 @@ export default function TambahTrip() {
                     />
                   </div>
                   <div className="mb-3">
+                    <label className="form-label" htmlFor="wage">
+                      Bayaran
+                    </label>
+                    <input
+                        type="number"
+                        className="form-control"
+                        id="wage"
+                        placeholder="upah untuk trip ini"
+                        value={formData.wage}
+                        onChange={handleChange}
+                    />
+                  </div>
+                  <div className="mb-3">
                     <label className="form-label" htmlFor="petugas-1">
                       Petugas 1
                     </label>
@@ -233,6 +248,7 @@ export default function TambahTrip() {
                     <select
                         id="status"
                         className="form-select"
+                        disabled={currentMode === 'Tambah'}
                         value={formData.status}
                         onChange={handleChange}
                     >

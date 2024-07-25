@@ -1,4 +1,4 @@
-const serverUrl = 'https://3d8d-103-107-85-104.ngrok-free.app';
+const serverUrl = 'http://localhost:3000';
 
 export function car() {
     const path = 'api/cars'

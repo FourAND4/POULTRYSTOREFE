@@ -58,13 +58,13 @@ export default function Bayaran(props) {
                   onChange={e => setMonth(e.target.value)}
                 />
               </div>
-              <Link to={`/karyawan/${salaries.employee_id}/gaji/tambah`} className="btn btn-primary">Tambah</Link>
+              <Link to={`/karyawan/${salaries?.employee_id || id}/gaji/tambah`} className="btn btn-primary">Tambah</Link>
             </div>
           </div>
         </div>
         <div className="mx-4">
-          <p>Total Pendapatan: <b id="this-month-salary">Rp.{salaries.salary_total}</b></p>
-          <p>Status: <b id="salary-status">{salaries.status}</b></p>
+          <p>Total Pendapatan: <b id="this-month-salary">Rp.{salaries?.salary_total || 0}</b></p>
+          <p>Status: <b id="salary-status">{salaries?.status || 'Delayed'}</b></p>
           <hr/>
           <p><b>Rincian: </b></p>
         </div>
@@ -85,7 +85,9 @@ export default function Bayaran(props) {
                   <td>{wage.amount}</td>
                   <td>{timeFormatter(new Date(wage.date))}</td>
                   <td>
-                    <Link to={`/gaji/${salaries.employee_id}/edit/${wage.id}`} className="btn btn-sm btn-secondary">edit</Link>
+                    {salaries.status === 'delayed' && (
+                      <Link to={`/gaji/${salaries?.employee_id || id}/edit/${wage.id}`} className="btn btn-sm btn-secondary">edit</Link>
+                    )}
                   </td>
                 </tr>
             ))}

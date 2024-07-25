@@ -40,7 +40,7 @@ const router = createBrowserRouter([
   { path: "/karyawan/tambah", element: <TambahKaryawan /> },
   { path: "/karyawan/:id", element: <TambahKaryawan /> },
   { path: "/karyawan/:id/gaji", element: <Bayaran using={'month'} /> },
-  { path: "/karyawan/:id/gaji/tambah", element: <TambahGaji /> },
+  { path: "/karyawan/:user/gaji/tambah", element: <TambahGaji /> },
   { path: "/gaji", element: <Gaji /> },
   { path: "/gaji/:id", element: <Bayaran using={'id'} /> },
   { path: "/gaji/:user/edit/:id", element: <TambahGaji /> },

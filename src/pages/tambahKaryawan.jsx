@@ -12,7 +12,7 @@ export default function TambahKaryawan() {
   const [nik, setNik] = useState('');
   const [address, setAddress] = useState('');
   const [phone, setPhone] = useState('');
-  const [position, setPosition] = useState('');
+  const [position, setPosition] = useState('Junior Worker');
   const [baseSalary, setBaseSalary] = useState('');
   const [username, setUsername] = useState('');
   const [nickname, setNickname] = useState('');

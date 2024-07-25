@@ -27,6 +27,15 @@ export default function Gaji() {
     setIsLoading(false);
   }
 
+  const markAsLunas = async (id) => {
+    const result = await salary().update(id, { status: 'paid' });
+    if (!result.error) {
+      fetchData();
+    } else {
+      setErrorMessage(result.message);
+    }
+  }
+
   return (
     <DashboardLayout title="Gaji" tabActive="gaji">
     <div className="card">
@@ -68,7 +77,15 @@ export default function Gaji() {
                     <td>{salary.salary[0].salary_total}</td>
                     <td>{salary.salary[0].status}</td>
                     <td>
-                      <Link to={`/gaji/${salary.id}`} className="btn btn-sm btn-secondary">lihat</Link>
+                      <Link to={`/gaji/${salary.salary[0].id}`} className="btn btn-sm btn-secondary me-2">lihat</Link>
+                      {salary.salary[0].status === 'delayed' && (
+                        <button
+                            className="btn btn-sm btn-primary"
+                            onClick={() => markAsLunas(salary.salary[0].id)}
+                        >
+                          Tandai Lunas
+                        </button>
+                      )}
                     </td>
                   </tr>
               )
